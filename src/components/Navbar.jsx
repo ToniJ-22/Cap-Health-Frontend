@@ -7,6 +7,7 @@ function Navbar() {
       <Link to="/dashboard" style={{ color: "white", marginRight: "15px" }}>Dashboard</Link>
       <Link to="/meals" style={{ color: "white", marginRight: "15px" }}>Meals</Link>
       <Link to="/readings" style={{ color: "white" }}>Readings</Link>
+      <Link to="/Login" style={{ color: "white" }}>Sign In</Link>
     </nav>
   );
 }

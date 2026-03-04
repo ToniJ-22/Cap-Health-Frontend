@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
+
 function ReadingForm() {
   const [readings, setReadings] = useState([]);
+  const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [level, setLevel] = useState("");
 
@@ -16,44 +18,64 @@ function ReadingForm() {
   };
 
   const addReading = async () => {
-    await fetch("http://localhost:5000/api/readings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ time, level })
-    });
+    if (!date || !time || !level) return;
 
+    setDate("");
+    setTime("");
+    setLevel("");
     fetchReadings();
   };
 
   return (
-    <div style={{ border: "1px solid gray", padding: "15px" }}>
-      <h3>Log Blood Sugar</h3>
+    <div className="card">
+      <h2>Blood Sugar Tracker</h2>
 
       <input
-        type="text"
-        placeholder="Time (Morning, Evening)"
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
+
+      <input
+        type="time"
+        value={time}
         onChange={(e) => setTime(e.target.value)}
       />
 
       <input
         type="number"
         placeholder="Glucose Level"
+        value={level}
         onChange={(e) => setLevel(e.target.value)}
       />
 
-      <button onClick={addReading}>Add</button>
+      <button onClick={addReading}>Add Reading</button>
 
       <ul>
         {readings.map((r) => (
           <li key={r.id}>
-            {r.time} - {r.level} mg/dL
+            <div>
+              <strong>{r.level} mg/dL</strong>
+              <br />
+              {r.date} at {formatTime(r.time)}
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
+}
+
+function formatTime(time) {
+  if (!time) return "";
+
+  let [hours, minutes] = time.split(":");
+  hours = parseInt(hours);
+
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+
+  return `${hours}:${minutes} ${ampm}`;
 }
 
 export default ReadingForm;
