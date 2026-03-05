@@ -18,13 +18,26 @@ function ReadingForm() {
   };
 
   const addReading = async () => {
-    if (!date || !time || !level) return;
+  if (!date || !time || !level) return;
 
-    setDate("");
-    setTime("");
-    setLevel("");
-    fetchReadings();
-  };
+  await fetch("http://localhost:5000/api/readings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      date,
+      time,
+      level: Number(level),
+    }),
+  });
+
+  setDate("");
+  setTime("");
+  setLevel("");
+
+  fetchReadings();
+};
 
   return (
     <div className="card">
