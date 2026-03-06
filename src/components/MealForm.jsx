@@ -36,12 +36,15 @@ function MealForm() {
         placeholder="Meal Name"
         onChange={(e) => setName(e.target.value)}
       />
-
-      <input
-        type="text"
-        placeholder="Carb Level (Low/Medium/High)"
+      <select
+        value={carbLevel}
         onChange={(e) => setCarbLevel(e.target.value)}
-      />
+      >
+        <option value="">Select Carb Level</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
 
       <button onClick={addMeal}>Add</button>
 
