@@ -20,38 +20,53 @@ function Dashboard() {
       <h1>Health is Wealth Dashboard</h1>
       <p>Track your blood sugar and stay healthy.</p>
 
-      <div className="dashboard-card">
-        <Charts readings={readings} />
-      </div>
+<h2 className="chart-title">Blood Sugar Trend</h2>
+
+<div className="dashboard-card">
+  <Charts readings={readings} />
+</div>
 
   
+  <div className="dashboard-card">
+  <h2>Recent Readings</h2>
+
+<ul>
+  {readings
+    .filter((r) => r.level && r.time)
+    .slice(-5)
+    .reverse()
+    .map((r) => (
+      <li key={r.id}>
+        <strong>{r.level} mg/dL</strong> — {r.time}
+      </li>
+    ))}
+</ul>
+</div>
+
       <div className="dashboard-card">
-        <h2>Recent Readings</h2>
 
-        <ul>
-          {readings.slice(-5).map((r) => (
-            <li key={r.id}>
-              <strong>{r.level} mg/dL</strong> — {r.time}
-            </li>
-          ))}
-        </ul>
+  <h2>Managing Blood Sugar</h2>
 
-      </div>
+  <div className="sugar-cards">
 
-      <div className="dashboard-card">
+    <div className="sugar-card low">
+      <h3>Low Sugar (Below 70)</h3>
+      <p>Eat fast acting carbs like fruit juice or glucose tablets.</p>
+    </div>
 
-        <h2>Managing Blood Sugar</h2>
+    <div className="sugar-card normal">
+      <h3>Normal Sugar (70-140)</h3>
+      <p>Maintain balanced meals, regular exercise, and hydration.</p>
+    </div>
 
-        <h3>Low Sugar (Below 70)</h3>
-        <p>Eat fast acting carbs like fruit juice or glucose tablets.</p>
+    <div className="sugar-card high">
+      <h3>High Sugar (Above 140)</h3>
+      <p>Drink water, take a short walk, and avoid sugary foods.</p>
+    </div>
 
-        <h3>Normal Sugar (70-140)</h3>
-        <p>Maintain balanced meals, regular exercise, and hydration.</p>
+  </div>
 
-        <h3>High Sugar (Above 140)</h3>
-        <p>Drink water, take a short walk, and avoid sugary foods.</p>
-
-      </div>
+</div>
 
       <div className="dashboard-buttons">
 
