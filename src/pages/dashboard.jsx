@@ -141,7 +141,6 @@ function Dashboard() {
         <button onClick={() => navigate("/readings")}>
           Add Reading
         </button>
-
         <button onClick={() => navigate("/meals")}>
           Add Meal
         </button>
