@@ -2,9 +2,11 @@ import ReadingForm from "../components/ReadingsForm";
 
 function Readings() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Blood Sugar Tracker</h2>
-      <ReadingForm />
+    <div className="readings-page">
+      <div className="readings-container">
+        <h2>Blood Sugar Tracker</h2>
+        <ReadingForm />
+      </div>
     </div>
   );
 }

@@ -5,11 +5,6 @@ function Home() {
   return (
     <div className="home-container">
 
-      <div className="app-title">
-        <h1>Health Is Wealth</h1>
-
-      </div>
-
       <section className="hero">
         
         <h2>Welcome to Your Diabetes Management System</h2>

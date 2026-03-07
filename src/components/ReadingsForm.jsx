@@ -81,9 +81,7 @@ function ReadingForm() {
 
   return (
     <div className="card">
-
-      <h2>Blood Sugar Tracker</h2>
-
+      
       <input
         type="date"
         value={date}
