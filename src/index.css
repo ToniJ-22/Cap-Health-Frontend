@@ -249,16 +249,12 @@ li {
   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
 
-.chart-container{
-  width:100%;
-}
-
 .chart{
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  gap:15px;
-  height:220px;
+  gap:14px;
+  height:200px;
 }
 
 .bar-wrapper{
@@ -269,21 +265,55 @@ li {
 
 .bar{
   width:35px;
-  background:#4CAF50;
   border-radius:6px 6px 0 0;
-  color:white;
-  font-size:12px;
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  padding-bottom:4px;
+  color:white;
+  font-size:12px;
+  transition: height 1.8s ease;
 }
-
 .label{
-  margin-top:5px;
+  margin-top:6px;
+  text-align:center;
   font-size:12px;
 }
-/* sugar card layout */
+
+.date{
+  font-weight:600;
+}
+
+.time{
+  color:#666;
+}
+
+
+
+.tooltip{
+  position:absolute;
+  bottom:110%;
+  background:#222;
+  color:white;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:11px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:0.2s;
+}
+
+.bar:hover .tooltip{
+  opacity:1;
+}
+
+.date{
+  font-weight:600;
+}
+
+.time{
+  color:black;
+}
 .sugar-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -292,12 +322,10 @@ li {
   margin-top: 20px;
 }
 
-/* make the last card centered */
 .sugar-card.high {
   grid-column: span 2;
 }
 
-/* individual sugar cards */
 .sugar-card {
   background: #dcdcdc;
   border-radius: 15px;
@@ -306,7 +334,6 @@ li {
   box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
 }
 
-/* text styling */
 .sugar-card h3 {
   margin-bottom: 10px;
 }
@@ -315,7 +342,6 @@ li {
   font-size: 15px;
 }
 
-/* colors */
 .low {
   border-top: 6px solid #3498db;
 }

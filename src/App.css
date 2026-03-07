@@ -40,3 +40,24 @@
 .read-the-docs {
   color: #4f62cf;
 }
+.crud-buttons{
+  margin-top:6px;
+}
+
+.crud-buttons button{
+  margin-right:6px;
+  padding:4px 8px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.crud-buttons button:first-child{
+  background:#3498db;
+  color:white;
+}
+
+.crud-buttons button:last-child{
+  background:#e74c3c;
+  color:white;
+}
