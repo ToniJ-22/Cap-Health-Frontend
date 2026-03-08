@@ -29,92 +29,85 @@ function Register() {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Create Account</h2>
+    <div className="auth-container">
+      <div className="card">
 
-      <form onSubmit={handleRegister} style={styles.form}>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          onChange={handleChange}
-          required
-        />
+        <h2>Create Account</h2>
+<form onSubmit={handleRegister}>
 
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          onChange={handleChange}
-          required
-        />
+  <div className="name-row">
+    <input
+      type="text"
+      name="firstName"
+      placeholder="First Name"
+      onChange={handleChange}
+      required
+    />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
+    <input
+      type="text"
+      name="lastName"
+      placeholder="Last Name"
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <div>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="Male"
-              onChange={handleChange}
-            />
-            Male
-          </label>
+  <div className="input-row">
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      onChange={handleChange}
+      required
+    />
 
-          <label style={{ marginLeft: "15px" }}>
-            <input
-              type="radio"
-              name="gender"
-              value="Female"
-              onChange={handleChange}
-            />
-            Female
-          </label>
-        </div>
-        
-        <select
-          name="diagnosis"
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Diagnosis</option>
-          <option value="Type 1 Diabetes">Type 1 Diabetes</option>
-          <option value="Type 2 Diabetes">Type 2 Diabetes</option>
-          <option value="Pre-Diabetic">Pre-Diabetic</option>
-          <option value="Gestational Diabetes">Gestational Diabetes</option>
-        </select>
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-        <button type="submit">Create Account</button>
-      </form>
+  <div className="radio-group">
+    <label>
+      <input
+        type="radio"
+        name="gender"
+        value="Male"
+        onChange={handleChange}
+      />
+      Male
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="gender"
+        value="Female"
+        onChange={handleChange}
+      />
+      Female
+    </label>
+  </div>
+
+  <select name="diagnosis" onChange={handleChange} required>
+    <option value="">Select Diagnosis</option>
+    <option value="Type 1 Diabetes">Type 1 Diabetes</option>
+    <option value="Type 2 Diabetes">Type 2 Diabetes</option>
+    <option value="Pre-Diabetic">Pre-Diabetic</option>
+    <option value="Gestational Diabetes">Gestational Diabetes</option>
+  </select>
+
+  <button type="submit">Create Account</button>
+
+</form>
+
+      </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    padding: "40px",
-    maxWidth: "400px",
-    margin: "auto",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  },
-};
 
 export default Register;

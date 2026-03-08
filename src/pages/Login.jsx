@@ -8,35 +8,40 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     navigate("/dashboard");
   };
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h2>Login</h2>
+    <div className="auth-container">
+      <div className="card">
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br /><br />
+        <h2>Login</h2>
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br /><br />
+        <form onSubmit={handleLogin}>
 
-        <button type="submit">Login</button>
-      </form>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">Login</button>
+
+        </form>
+
+        <p style={{ marginTop: "15px" }}>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+
+      </div>
     </div>
   );
 }

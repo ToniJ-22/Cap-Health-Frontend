@@ -5,64 +5,100 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
 
   const [readings, setReadings] = useState([]);
+  const [rewardBalance, setRewardBalance] = useState(0);
+  const [rewardPopup, setRewardPopup] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchReadings();
+    loadRewardBalance();
+
+    const handleReward = (event) => {
+      const amount = event.detail.amount;
+
+      const updatedBalance =
+        Number(localStorage.getItem("rewardBalance")) || 0;
+
+      setRewardBalance(updatedBalance);
+      setRewardPopup(amount);
+
+      setTimeout(() => {
+        setRewardPopup(null);
+      }, 2000);
+    };
+
+    window.addEventListener("rewardEarned", handleReward);
+
+    return () => {
+      window.removeEventListener("rewardEarned", handleReward);
+    };
   }, []);
 
+  const loadRewardBalance = () => {
+    const balance = Number(localStorage.getItem("rewardBalance")) || 0;
+    setRewardBalance(balance);
+  };
+
   const fetchReadings = async () => {
-    const res = await fetch("http://localhost:5000/api/readings");
-    const data = await res.json();
-    setReadings(data);
+    try {
+      const res = await fetch("http://localhost:5000/api/readings");
+      const data = await res.json();
+      setReadings(data);
+    } catch (error) {
+      console.error("Error fetching readings:", error);
+    }
   };
 
   const deleteReading = async (id) => {
-    await fetch(`http://localhost:5000/api/readings/${id}`, {
-      method: "DELETE"
-    });
+    try {
+      await fetch(`http://localhost:5000/api/readings/${id}`, {
+        method: "DELETE"
+      });
 
-    setReadings(readings.filter((r) => r.id !== id));
+      setReadings(readings.filter((r) => r.id !== id));
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
   };
 
   const editReading = async (id) => {
     const newLevel = prompt("Enter new glucose level");
-
     if (!newLevel) return;
 
-    const res = await fetch(`http://localhost:5000/api/readings/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        level: Number(newLevel)
-      })
-    });
+    try {
+      await fetch(`http://localhost:5000/api/readings/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          level: Number(newLevel)
+        })
+      });
 
-    const updated = await res.json();
-
-    setReadings(
-      readings.map((r) =>
-        r.id === id ? updated : r
-      )
-    );
+      fetchReadings();
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
   };
 
-  function formatTime(time) {
+  const formatTime = (time) => {
     if (!time) return "";
-
     let [hours, minutes] = time.split(":");
     hours = parseInt(hours);
-
     const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12;
-
     return `${hours}:${minutes} ${ampm}`;
-  }
+  };
 
   return (
     <div className="dashboard">
+
+      {rewardPopup && (
+        <div className="reward-popup">
+          +${rewardPopup} Earned!
+        </div>
+      )}
 
       <h1>Welcome to your Dashboard</h1>
       <p>Track your blood sugar and stay healthy.</p>
@@ -74,7 +110,6 @@ function Dashboard() {
       </div>
 
       <div className="dashboard-card">
-
         <h2>Recent Readings</h2>
 
         <ul>
@@ -83,47 +118,32 @@ function Dashboard() {
             .slice(-5)
             .reverse()
             .map((r) => (
-
               <li key={r.id}>
-
-                <strong>{r.level} mg/dL</strong> — {formatTime(r.time)}
-
-                <div className="crud-buttons">
-
-                  <button
-                    onClick={() => editReading(r.id)}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    onClick={() => deleteReading(r.id)}
-                  >
-                    Delete
-                  </button>
-
+                <div>
+                  <strong>{r.level} mg/dL</strong>
+                  <br />
+                  {r.date} at {formatTime(r.time)}
                 </div>
 
+                <div className="crud-buttons">
+                  <button onClick={() => editReading(r.id)}>Edit</button>
+                  <button onClick={() => deleteReading(r.id)}>Delete</button>
+                </div>
               </li>
-
             ))}
         </ul>
-
       </div>
-
       <div className="dashboard-card">
-
         <h2>Managing Blood Sugar</h2>
 
         <div className="sugar-cards">
-
           <div className="sugar-card low">
             <h3>Low Sugar (Below 70)</h3>
             <p>Eat fast acting carbs like fruit juice or glucose tablets.</p>
           </div>
 
           <div className="sugar-card normal">
-            <h3>Normal Sugar (70-140)</h3>
+            <h3>Normal Sugar (70–140)</h3>
             <p>Maintain balanced meals, regular exercise, and hydration.</p>
           </div>
 
@@ -131,20 +151,24 @@ function Dashboard() {
             <h3>High Sugar (Above 140)</h3>
             <p>Drink water, take a short walk, and avoid sugary foods.</p>
           </div>
-
         </div>
+      </div>
 
+      <div className="dashboard-card">
+        <h2>Wallet</h2>
+        <div className="wallet-content">
+          <p className="wallet-balance">${rewardBalance}</p>
+        </div>
       </div>
 
       <div className="dashboard-buttons">
-
         <button onClick={() => navigate("/readings")}>
           Add Reading
         </button>
+
         <button onClick={() => navigate("/meals")}>
           Add Meal
         </button>
-
       </div>
 
     </div>
