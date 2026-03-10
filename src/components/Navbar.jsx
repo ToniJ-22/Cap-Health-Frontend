@@ -18,14 +18,20 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/dashboard">Dashboard</Link>
 
-      {!isLoggedIn ? (
-        <Link to="/login">Sign In</Link>
-      ) : (
-        <button onClick={handleLogout}>Logout</button>
-      )}
+      <h2 className="logo">Health Is Wealth</h2>
+
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+
+        {!isLoggedIn ? (
+          <Link to="/login">Sign In</Link>
+        ) : (
+          <button onClick={handleLogout}>Logout</button>
+        )}
+      </div>
+
     </nav>
   );
 }

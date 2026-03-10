@@ -12,86 +12,77 @@ font-size:18px;
 line-height:1.6;
 }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 50px;
-background:rgba(255,255,255,0.85);
-backdrop-filter:blur(8px);
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
-position:sticky;
-top:0;
-z-index:10;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 50px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.logo{
-font-size:28px;
-font-weight:700;
-letter-spacing:.5px;
-color:#111827;
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #111827;
+  cursor: pointer;
 }
 
-.nav-links{
-display:flex;
-align-items:center;
-gap:35px;
+ 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 35px;
 }
 
-.navbar a{
-text-decoration:none;
-color:#374151;
-font-size:16px;
-font-weight:500;
-position:relative;
-transition:all .25s ease;
+.nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.25s ease;
 }
 
-.navbar a:hover{
-color:#10b981;
+.nav-links a:hover {
+  color: #10b981;
 }
 
-.navbar a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:-5px;
-width:0%;
-height:2px;
-background:#10b981;
-transition:0.3s;
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: #10b981;
+  transition: width 0.3s ease;
 }
 
-.navbar a:hover::after{
-width:100%;
+.nav-links a:hover::after {
+  width: 100%;
 }
 
-.navbar a{
-text-decoration:none;
-color:#374151;
-font-size:16px;
-font-weight:500;
-position:relative;
-transition:all .25s ease;
+.nav-links button {
+  background: none;
+  border: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.25s ease;
 }
 
-.navbar a:hover{
-color:#10b981;
-}
-
-.navbar a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:-5px;
-width:0%;
-height:2px;
-background:#10b981;
-transition:0.3s;
-}
-
-.navbar a:hover::after{
-width:100%;
+.nav-links button:hover {
+  color: #ef4444;
 }
 .container{
 width:92%;
