@@ -7,12 +7,18 @@ function Dashboard() {
   const [readings, setReadings] = useState([]);
   const [rewardBalance, setRewardBalance] = useState(0);
   const [rewardPopup, setRewardPopup] = useState(null);
+  const [firstName, setFirstName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchReadings();
     loadRewardBalance();
 
+    const name = localStorage.getItem("userName");
+    if (name) {
+      setFirstName(name);
+    }
+  
     const handleReward = (event) => {
       const amount = event.detail.amount;
 
@@ -32,6 +38,7 @@ function Dashboard() {
     return () => {
       window.removeEventListener("rewardEarned", handleReward);
     };
+
   }, []);
 
   const loadRewardBalance = () => {
@@ -100,7 +107,10 @@ function Dashboard() {
         </div>
       )}
 
-      <h1>Welcome to your Dashboard</h1>
+      <h1>
+        {firstName ? `Welcome back, ${firstName}!` : "Welcome to your Dashboard"}
+      </h1>
+
       <p>Track your blood sugar and stay healthy.</p>
 
       <h2 className="chart-title">Blood Sugar Trend</h2>
@@ -133,6 +143,7 @@ function Dashboard() {
             ))}
         </ul>
       </div>
+
       <div className="dashboard-card">
         <h2>Managing Blood Sugar</h2>
 

@@ -9,7 +9,6 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 🔹 Get stored user from registration
     const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
 
     if (!storedUser) {
@@ -18,7 +17,6 @@ function Login() {
     }
 
     if (email === storedUser.email && password === storedUser.password) {
-      // ✅ Save name for dashboard
       localStorage.setItem("userName", storedUser.firstName);
 
       navigate("/dashboard");

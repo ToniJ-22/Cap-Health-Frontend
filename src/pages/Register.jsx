@@ -23,10 +23,8 @@ function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Save user data
     localStorage.setItem("registeredUser", JSON.stringify(formData));
 
-    // Log user in automatically
     localStorage.setItem("userName", formData.firstName);
     localStorage.setItem("isLoggedIn", "true");
 
