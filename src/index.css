@@ -170,28 +170,22 @@ margin-top:5px;
 }
 
 button{
-padding:16px 22px;
-.nav-links{
-display:flex;
-margin-right:40px;
-align-items:center;
-justify-content:center;
-gap:20px;
-}
-border:none;
-border-radius:10px;
-font-weight:600;
-font-size:16px;
-cursor:pointer;
-background:#10b981;
-color:white;
-transition:.3s;
+background: linear-gradient(135deg, #2fd4c7, #48e2a2);
+color: white;
+border: none;
+padding: 14px 28px;
+border-radius: 8px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.3s ease;
 }
 
-button:hover{
-background:#059669;
-transform:scale(1.04);
+button:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
+
 
 ul{
 list-style:none;

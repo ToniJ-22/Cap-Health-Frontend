@@ -23,9 +23,14 @@ function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    console.log("User Registered:", formData);
+    // Save user data
+    localStorage.setItem("registeredUser", JSON.stringify(formData));
 
-    navigate("/");
+    // Log user in automatically
+    localStorage.setItem("userName", formData.firstName);
+    localStorage.setItem("isLoggedIn", "true");
+
+    navigate("/dashboard");
   };
 
   return (
@@ -33,77 +38,78 @@ function Register() {
       <div className="card">
 
         <h2>Create Account</h2>
-<form onSubmit={handleRegister}>
 
-  <div className="name-row">
-    <input
-      type="text"
-      name="firstName"
-      placeholder="First Name"
-      onChange={handleChange}
-      required
-    />
+        <form onSubmit={handleRegister}>
 
-    <input
-      type="text"
-      name="lastName"
-      placeholder="Last Name"
-      onChange={handleChange}
-      required
-    />
-  </div>
+          <div className="name-row">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              onChange={handleChange}
+              required
+            />
 
-  <div className="input-row">
-    <input
-      type="email"
-      name="email"
-      placeholder="Email"
-      onChange={handleChange}
-      required
-    />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-    <input
-      type="password"
-      name="password"
-      placeholder="Password"
-      onChange={handleChange}
-      required
-    />
-  </div>
+          <div className="input-row">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
 
-  <div className="radio-group">
-    <label>
-      <input
-        type="radio"
-        name="gender"
-        value="Male"
-        onChange={handleChange}
-      />
-      Male
-    </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-    <label>
-      <input
-        type="radio"
-        name="gender"
-        value="Female"
-        onChange={handleChange}
-      />
-      Female
-    </label>
-  </div>
+          <div className="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Male"
+                onChange={handleChange}
+              />
+              Male
+            </label>
 
-  <select name="diagnosis" onChange={handleChange} required>
-    <option value="">Select Diagnosis</option>
-    <option value="Type 1 Diabetes">Type 1 Diabetes</option>
-    <option value="Type 2 Diabetes">Type 2 Diabetes</option>
-    <option value="Pre-Diabetic">Pre-Diabetic</option>
-    <option value="Gestational Diabetes">Gestational Diabetes</option>
-  </select>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Female"
+                onChange={handleChange}
+              />
+              Female
+            </label>
+          </div>
 
-  <button type="submit">Create Account</button>
+          <select name="diagnosis" onChange={handleChange} required>
+            <option value="">Select Diagnosis</option>
+            <option value="Type 1 Diabetes">Type 1 Diabetes</option>
+            <option value="Type 2 Diabetes">Type 2 Diabetes</option>
+            <option value="Pre-Diabetic">Pre-Diabetic</option>
+            <option value="Gestational Diabetes">Gestational Diabetes</option>
+          </select>
 
-</form>
+          <button type="submit">Create Account</button>
+
+        </form>
 
       </div>
     </div>

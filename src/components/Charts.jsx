@@ -43,7 +43,7 @@ function Charts({ readings }) {
           .slice(-10)
           .map((r) => {
 
-            const height = (r.level / 2000) * 180;
+            const height = (r.level / 800 ) * 180;
 
             return (
               <div key={r.id} className="bar-wrapper">

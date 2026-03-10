@@ -8,7 +8,23 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+
+    // 🔹 Get stored user from registration
+    const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+
+    if (!storedUser) {
+      alert("No account found. Please register.");
+      return;
+    }
+
+    if (email === storedUser.email && password === storedUser.password) {
+      // ✅ Save name for dashboard
+      localStorage.setItem("userName", storedUser.firstName);
+
+      navigate("/dashboard");
+    } else {
+      alert("Invalid email or password");
+    }
   };
 
   return (
