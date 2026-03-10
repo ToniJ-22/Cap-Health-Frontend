@@ -25,3 +25,9 @@ A full-stack Diabetes Management Web Application that allows users to:
 - User Login
 - Lougout function
 - Navbar Rendering 
+
+## Meal Tracking 
+- Add/Edit/Delete Meals 
+- Enter date meals food eaten carbs and sugars 
+
+
