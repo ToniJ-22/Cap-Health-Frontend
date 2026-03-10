@@ -19,3 +19,9 @@ A full-stack Diabetes Management Web Application that allows users to:
 - CORS 
 - ESPRESS
 - NODE
+
+## aUTH 
+- User Register
+- User Login
+- Lougout function
+- Navbar Rendering 
