@@ -4,9 +4,10 @@ export default function Meals() {
   const [meals, setMeals] = useState([]);
   const [date, setDate] = useState("");
   const [mealName, setMealName] = useState("");
+  const [foodInput, setFoodInput] = useState("");
   const [carbs, setCarbs] = useState("");
   const [sugars, setSugars] = useState("");
-  const [notes, setNotes] = useState("");
+  const [protein, setProtein] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [rewardPopup, setRewardPopup] = useState(null);
 
@@ -20,7 +21,7 @@ export default function Meals() {
       const data = await res.json();
       setMeals(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching meals:", error);
     }
   };
 
@@ -40,18 +41,21 @@ export default function Meals() {
         body: JSON.stringify({
           date,
           mealName,
+          food: foodInput,
           carbs: Number(carbs),
           sugars: Number(sugars),
-          notes,
+          protein: Number(protein),
         }),
       });
 
-      const newMeal = await res.json();
+      const updatedMeal = await res.json();
 
       if (editingId) {
-        setMeals(meals.map((m) => (m.id === editingId ? newMeal : m)));
+        setMeals((prev) =>
+          prev.map((m) => (m.id === editingId ? updatedMeal : m))
+        );
       } else {
-        setMeals([...meals, newMeal]);
+        setMeals((prev) => [...prev, updatedMeal]);
 
         const current = Number(localStorage.getItem("rewardBalance")) || 0;
         localStorage.setItem("rewardBalance", current + 3);
@@ -62,47 +66,87 @@ export default function Meals() {
 
       clearForm();
     } catch (error) {
-      console.error(error);
+      console.error("Error saving meal:", error);
     }
   };
 
   const deleteMeal = async (id) => {
-    await fetch(`http://localhost:5000/api/meals/${id}`, {
-      method: "DELETE",
-    });
-    setMeals(meals.filter((m) => m.id !== id));
+    try {
+      await fetch(`http://localhost:5000/api/meals/${id}`, {
+        method: "DELETE",
+      });
+      setMeals((prev) => prev.filter((m) => m.id !== id));
+    } catch (error) {
+      console.error("Error deleting meal:", error);
+    }
   };
 
   const startEdit = (meal) => {
     setEditingId(meal.id);
     setDate(meal.date);
     setMealName(meal.mealName);
+    setFoodInput(meal.food || "");
     setCarbs(meal.carbs);
     setSugars(meal.sugars);
-    setNotes(meal.notes);
+    setProtein(meal.protein || "");
   };
 
   const clearForm = () => {
     setEditingId(null);
     setDate("");
     setMealName("");
+    setFoodInput("");
     setCarbs("");
     setSugars("");
-    setNotes("");
+    setProtein("");
   };
 
   return (
     <div className="page">
-
       <div className="card">
         <h2>{editingId ? "Edit Meal" : "Add Meal"}</h2>
 
         <form onSubmit={submitMeal}>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-          <input type="text" placeholder="Meal Name" value={mealName} onChange={(e) => setMealName(e.target.value)} />
-          <input type="number" placeholder="Carbs (g)" value={carbs} onChange={(e) => setCarbs(e.target.value)} />
-          <input type="number" placeholder="Sugars (g)" value={sugars} onChange={(e) => setSugars(e.target.value)} />
-          <textarea placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+
+          <input
+            type="text"
+            placeholder="Breakfast / Lunch / Dinner"
+            value={mealName}
+            onChange={(e) => setMealName(e.target.value)}
+          />
+
+          <input
+            type="text"
+            placeholder="Enter foods (ex: spaghetti, meatballs, garlic bread)"
+            value={foodInput}
+            onChange={(e) => setFoodInput(e.target.value)}
+          />
+
+          <input
+            type="number"
+            placeholder="Carbs (g)"
+            value={carbs}
+            onChange={(e) => setCarbs(e.target.value)}
+          />
+
+          <input
+            type="number"
+            placeholder="Sugars (g)"
+            value={sugars}
+            onChange={(e) => setSugars(e.target.value)}
+          />
+
+          <input
+            type="number"
+            placeholder="Protein (g)"
+            value={protein}
+            onChange={(e) => setProtein(e.target.value)}
+          />
 
           <button type="submit">
             {editingId ? "Update Meal" : "Add Meal"}
@@ -118,8 +162,11 @@ export default function Meals() {
             <div>
               <strong>{meal.mealName}</strong>
               <p>{meal.date}</p>
-              <p>Carbs: {meal.carbs}g | Sugars: {meal.sugars}g</p>
-              {meal.notes && <p>{meal.notes}</p>}
+              <p>{meal.food}</p>
+              <p>
+                Carbs: {meal.carbs}g | Sugars: {meal.sugars}g | Protein:{" "}
+                {meal.protein}g
+              </p>
             </div>
 
             <div className="crud-buttons">
@@ -132,11 +179,9 @@ export default function Meals() {
 
       {rewardPopup && (
         <div className="reward-popup">
-          +${rewardPopup}
-          <span className="coin">💰</span>
+          +${rewardPopup} 💰
         </div>
       )}
-
     </div>
   );
 }

@@ -3,7 +3,6 @@ import Charts from "../components/Charts";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-
   const [readings, setReadings] = useState([]);
   const [rewardBalance, setRewardBalance] = useState(0);
   const [rewardPopup, setRewardPopup] = useState(null);
@@ -15,30 +14,21 @@ function Dashboard() {
     loadRewardBalance();
 
     const name = localStorage.getItem("userName");
-    if (name) {
-      setFirstName(name);
-    }
-  
+    if (name) setFirstName(name);
+
     const handleReward = (event) => {
       const amount = event.detail.amount;
-
       const updatedBalance =
         Number(localStorage.getItem("rewardBalance")) || 0;
 
       setRewardBalance(updatedBalance);
       setRewardPopup(amount);
 
-      setTimeout(() => {
-        setRewardPopup(null);
-      }, 2000);
+      setTimeout(() => setRewardPopup(null), 2000);
     };
 
     window.addEventListener("rewardEarned", handleReward);
-
-    return () => {
-      window.removeEventListener("rewardEarned", handleReward);
-    };
-
+    return () => window.removeEventListener("rewardEarned", handleReward);
   }, []);
 
   const loadRewardBalance = () => {
@@ -59,9 +49,8 @@ function Dashboard() {
   const deleteReading = async (id) => {
     try {
       await fetch(`http://localhost:5000/api/readings/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
-
       setReadings(readings.filter((r) => r.id !== id));
     } catch (error) {
       console.error("Delete failed:", error);
@@ -75,12 +64,8 @@ function Dashboard() {
     try {
       await fetch(`http://localhost:5000/api/readings/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          level: Number(newLevel)
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ level: Number(newLevel) }),
       });
 
       fetchReadings();
@@ -100,28 +85,39 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-
+      
       {rewardPopup && (
         <div className="reward-popup">
           +${rewardPopup} Earned!
         </div>
       )}
 
-      <h1>
-        {firstName ? `Welcome back, ${firstName}!` : "Welcome to your Dashboard"}
+      <h1 className="dashboard-title">
+        {firstName
+          ? `Welcome back, ${firstName}!`
+          : "Welcome to your Dashboard"}
       </h1>
 
-      <p>Track your blood sugar and stay healthy.</p>
+      <p className="dashboard-subtext">
+        Track your blood sugar and stay healthy.
+      </p>
 
       <h2 className="chart-title">Blood Sugar Trend</h2>
 
       <div className="dashboard-card">
         <Charts readings={readings} />
       </div>
+     <div className="dashboard-buttons">
+        <button onClick={() => navigate("/readings")}>
+          Add Reading
+        </button>
 
+        <button onClick={() => navigate("/meals")}>
+          Add Meal
+        </button>
+      </div>
       <div className="dashboard-card">
         <h2>Recent Readings</h2>
-
         <ul>
           {readings
             .filter((r) => r.level && r.time)
@@ -146,25 +142,63 @@ function Dashboard() {
 
       <div className="dashboard-card">
         <h2>Managing Blood Sugar</h2>
-
         <div className="sugar-cards">
           <div className="sugar-card low">
-            <h3>Low Sugar (Below 70)</h3>
-            <p>Eat fast acting carbs like fruit juice or glucose tablets.</p>
+            <h3>Low (Below 70)</h3>
+            <p>Eat fast-acting carbs like juice or glucose tablets.</p>
           </div>
 
           <div className="sugar-card normal">
-            <h3>Normal Sugar (70–140)</h3>
-            <p>Maintain balanced meals, regular exercise, and hydration.</p>
+            <h3>Normal (70–140)</h3>
+            <p>Maintain balanced meals, exercise, and hydration.</p>
           </div>
 
           <div className="sugar-card high">
-            <h3>High Sugar (Above 140)</h3>
-            <p>Drink water, take a short walk, and avoid sugary foods.</p>
+            <h3>High (Above 140)</h3>
+            <p>Drink water, take a short walk, avoid sugary foods.</p>
           </div>
         </div>
       </div>
 
+      <div className="dashboard-card">
+        <h2>Nutrition Guide</h2>
+        <div className="nutrition-section">
+
+          <div className="nutrition-block">
+            <h3>🥗 Best Foods</h3>
+            <ul>
+              <li>Leafy greens</li>
+              <li>Whole grains</li>
+              <li>Lean proteins</li>
+              <li>Beans & legumes</li>
+              <li>Low-glycemic fruits</li>
+            </ul>
+          </div>
+
+          <div className="nutrition-block">
+            <h3>💧 Best Drinks</h3>
+            <ul>
+              <li>Water</li>
+              <li>Unsweetened tea</li>
+              <li>Black coffee (moderation)</li>
+              <li>Infused water</li>
+            </ul>
+          </div>
+
+          <div className="nutrition-block avoid">
+            <h3>⚠️ Limit</h3>
+            <ul>
+              <li>Sugary drinks</li>
+              <li>Refined carbs</li>
+              <li>Fried foods</li>
+              <li>Processed snacks</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+   
       <div className="dashboard-card">
         <h2>Wallet</h2>
         <div className="wallet-content">
@@ -172,15 +206,6 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="dashboard-buttons">
-        <button onClick={() => navigate("/readings")}>
-          Add Reading
-        </button>
-
-        <button onClick={() => navigate("/meals")}>
-          Add Meal
-        </button>
-      </div>
 
     </div>
   );
