@@ -30,4 +30,8 @@ A full-stack Diabetes Management Web Application that allows users to:
 - Add/Edit/Delete Meals 
 - Enter date meals food eaten carbs and sugars 
 
+##  glucose Tracking
+- Add/Edit/Delete readings 
+-track dates/levels/notes
+
 
