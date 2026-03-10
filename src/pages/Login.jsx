@@ -6,24 +6,26 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+ const handleLogin = (e) => {
+  e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+  const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
 
-    if (!storedUser) {
-      alert("No account found. Please register.");
-      return;
-    }
+  if (!storedUser) {
+    alert("No account found. Please register.");
+    return;
+  }
 
-    if (email === storedUser.email && password === storedUser.password) {
-      localStorage.setItem("userName", storedUser.firstName);
+  if (email === storedUser.email && password === storedUser.password) {
+    localStorage.setItem("userName", storedUser.firstName);
 
-      navigate("/dashboard");
-    } else {
-      alert("Invalid email or password");
-    }
-  };
+    navigate("/dashboard");
+
+    window.location.reload(); 
+  } else {
+    alert("Invalid email or password");
+  }
+};
 
   return (
     <div className="auth-container">
