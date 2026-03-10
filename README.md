@@ -15,3 +15,7 @@ A full-stack Diabetes Management Web Application that allows users to:
 - CSS
 - LocalStorage (for authentication + rewards)
 
+## Backend 
+- CORS 
+- ESPRESS
+- NODE
