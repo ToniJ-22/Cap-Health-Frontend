@@ -34,4 +34,7 @@ A full-stack Diabetes Management Web Application that allows users to:
 - Add/Edit/Delete readings 
 -track dates/levels/notes
 
-
+## reward system 
+- Users can earn points for logging meals and readings
+- Balance stored to redeem in furture
+ -Pop up notification 
