@@ -92,21 +92,22 @@ function Dashboard() {
         </div>
       )}
 
-      <h1 className="dashboard-title">
-        {firstName
-          ? `Welcome back, ${firstName}!`
-          : "Welcome to your Dashboard"}
-      </h1>
+   <div className="dashboard-hero">
+  <h1 className="dashboard-title">
+    {firstName
+      ? `Welcome back, ${firstName}!`
+      : "Welcome to your Dashboard"}
+  </h1>
 
-      <p className="dashboard-subtext">
-        Track your blood sugar and stay healthy.
-      </p>
-
-      <h2 className="chart-title">Blood Sugar Trend</h2>
+  <p className="dashboard-subtitle">
+    Track your blood sugar and stay healthy.
+  </p>
+</div>
 
       <div className="dashboard-card">
-        <Charts readings={readings} />
-      </div>
+  <h2>Blood Sugar Trend</h2>
+  <Charts readings={readings} />
+</div>
      <div className="dashboard-buttons">
         <button onClick={() => navigate("/readings")}>
           Add Reading
