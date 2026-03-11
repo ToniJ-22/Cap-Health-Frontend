@@ -167,31 +167,31 @@ function Dashboard() {
           <div className="nutrition-block">
             <h3>🥗 Best Foods</h3>
             <ul>
-              <li>Leafy greens</li>
-              <li>Whole grains</li>
-              <li>Lean proteins</li>
-              <li>Beans & legumes</li>
-              <li>Low-glycemic fruits</li>
+             <li>🥬 Leafy greens</li>
+<li>🌾 Whole grains</li>
+<li>🍗 Lean proteins</li>
+<li>🫘 Beans & legumes</li>
+<li>🍓 Low-glycemic fruits</li>
             </ul>
           </div>
 
           <div className="nutrition-block">
             <h3>💧 Best Drinks</h3>
             <ul>
-              <li>Water</li>
-              <li>Unsweetened tea</li>
-              <li>Black coffee (moderation)</li>
-              <li>Infused water</li>
+             <li>💧 Water</li>
+<li>🍵 Unsweetened tea</li>
+<li>☕ Black coffee </li>
+<li>🍋 Infused water</li>
             </ul>
           </div>
 
           <div className="nutrition-block avoid">
             <h3>⚠️ Limit</h3>
             <ul>
-              <li>Sugary drinks</li>
-              <li>Refined carbs</li>
-              <li>Fried foods</li>
-              <li>Processed snacks</li>
+            <li>🥤 Sugary drinks</li>
+<li>🍞 Refined carbs</li>
+<li>🍟 Fried foods</li>
+<li>🍪 Processed snacks</li>
             </ul>
           </div>
 
@@ -199,7 +199,7 @@ function Dashboard() {
       </div>
 
    
-      <div className="dashboard-card">
+      <div className="wallet-card">
         <h2>Wallet</h2>
         <div className="wallet-content">
           <p className="wallet-balance">${rewardBalance}</p>
